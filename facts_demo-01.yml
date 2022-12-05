@@ -1,0 +1,22 @@
+- name: fact demo
+  hosts: all
+  gather_facts: no
+  connection: network_cli
+  tasks:
+    - name: ios facts
+      ios_facts: 
+        gather_subset: all
+      when: ansible_network_os == 'ios'
+      register: facts
+
+    - debug: var=facts.ansible_facts.ansible_net_neighbors
+   
+    - name: iosxr facts
+      iosxr_facts: 
+        gather_subset: 'interfaces'
+      when: ansible_network_os == 'iosxr'
+   
+    - name: ce facts
+      ce_facts: 
+        gather_subset: 'interfaces'
+      when: ansible_network_os == 'ce'

@@ -1,0 +1,15 @@
+- name: ping test
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: ping check shell
+      command: "ping -c 1 -W 3 10.0.0.1"
+
+    - name: ping check shell
+      command: "ping -c 1 -W 3 10.0.0.12"
+      ignore_errors: yes
+      register: ping_result
+
+    - name: check ping
+      fail: msg="you failed"
+      when: '"1 received" in ping_result.stdout '

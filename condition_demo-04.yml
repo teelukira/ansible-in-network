@@ -1,0 +1,9 @@
+- name: demo for ios 
+  hosts: all
+  connection: network_cli
+  gather_facts: no
+  tasks:
+    - name: save
+      ios_command:
+        commands: "wr mem"
+      when: ansible_network_os=="ios"

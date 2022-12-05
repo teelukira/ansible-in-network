@@ -1,0 +1,28 @@
+- name: compreghensive practice
+  hosts: ios
+  connection: network_cli
+  gather_facts: no
+  tasks:
+    - name: show command
+      ios_command:
+        commands: "show run | inc username"
+      register: output
+
+    - name: set_fact with filter
+      set_fact:
+        users: "{{ output.stdout | regex_findall(regexp) }}"
+      vars:
+        regexp: 'username (\S+)'
+
+    - name: set_fact with filter
+      set_fact:
+        time: "{{ lookup('pipe', 'date -d \"1 day ago\" +\"%Y%m%d\"') }}"
+      run_once: yes
+
+
+    - name: line in file
+      lineinfile:
+        path: "ios_users_{{ time }}.csv"
+        line: "{{ inventory_hostname }},{{ item }}"
+        create: yes
+      with_items: "{{ users }}"

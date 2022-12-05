@@ -1,0 +1,11 @@
+---
+- name: demo
+  hosts: localhost
+  gather_facts: yes
+  tasks:
+    - name: debug
+      debug: var=ansible_facts
+
+
+
+...

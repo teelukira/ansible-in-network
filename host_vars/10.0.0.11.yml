@@ -1,0 +1,6 @@
+---
+interface: loopback0
+ospf_area: 10
+
+
+...

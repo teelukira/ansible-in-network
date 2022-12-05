@@ -1,0 +1,27 @@
+- name: shutdown interface
+  hosts: 10.0.0.11
+  connection: network_cli
+  gather_facts: no
+  vars:
+    nodes:
+      - node: 10.0.0.11
+        interface: loopback 0
+      - node: 10.0.0.12
+        interface: loopback 1
+      - node: 10.0.0.13
+        interface: GigabitEthernet 0/0/1
+      - node: 10.0.0.14
+        interface: GigabitEthernet 0/0/2
+  tasks:
+#    - name: configure mode
+#      iosxr_command:
+#        commands: configure terminal
+    - name: write interface
+#      iosxr_commands:
+#        commands: "interface {{ item.interface }} "
+      debug: var=item.interface
+      when: inventory_hostname == item.node
+      with_items: "{{ nodes }}"
+#    - name: commit
+#      iosxr_command:
+#        commands: commit

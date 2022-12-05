@@ -1,0 +1,11 @@
+---
+- name: first task
+  debug: msg="first task"
+ 
+- name: second task
+  debug: msg="second task"
+ 
+- name: template tasks
+  template:
+    src: foo.j2
+    dest: "{{ inventory_hostname }}.log"

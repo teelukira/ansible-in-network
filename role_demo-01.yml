@@ -1,0 +1,6 @@
+- name: demo role
+  hosts: ios,ce
+  gather_facts: no
+  connection: network_cli
+  roles: 
+    - common_backup

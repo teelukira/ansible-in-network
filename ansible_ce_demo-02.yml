@@ -1,0 +1,14 @@
+---
+- name: get version from cli
+  hosts: ce
+  connection: network_cli
+  gather_facts: no
+  tasks: 
+    - name: get cli command
+      ce_command:
+        commands: display version
+      register: version
+
+    - debug: var=version
+
+...

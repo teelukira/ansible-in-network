@@ -1,0 +1,11 @@
+- name: basic condition
+  hosts: all
+  connection: network_cli
+  gather_facts: no
+  tasks:
+    - name: save
+      ios_command:
+        commands: "write memory"
+      when: 
+        - not ansible_network_os=="ce"
+        - ansible_network_os== "ios"

@@ -1,0 +1,11 @@
+- name: basic condition
+  hosts: all
+  connection: network_cli
+  gather_facts: no
+  tasks:
+    - name: save
+      ce_command:
+        commands:
+          - save
+          - y
+      when: ansible_network_os=="ce"

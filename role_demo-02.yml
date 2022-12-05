@@ -1,0 +1,5 @@
+---
+- name: playbook start #first play
+  hosts: localhost
+  roles:
+    - common

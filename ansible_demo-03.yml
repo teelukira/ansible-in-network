@@ -1,0 +1,21 @@
+- name: demo-03
+  hosts: 10.0.0.1
+  connection: network_cli 
+  gather_facts: no
+  tasks:
+    - name: read config
+      command: cat configuration01.conf
+      register: config
+
+    - debug: var=config
+
+    - name: push configuraiton
+      ios_command:
+        commands: "{{ config.stdout_lines }}"
+
+    - name: show hostname
+      ios_command:
+        commands: "show run | sec hostname "
+      register: hostname
+
+    - debug: var=hostname    

@@ -1,0 +1,17 @@
+- name: demo2
+  hosts: localhost
+  gather_facts: no
+  vars:
+    hostname: "testname"
+  tasks:
+    - name: rendering testi
+      template:
+        src: demo_template.j2
+        dest: configuration01.conf
+
+    - name: debug
+      command: cat configuration01.conf
+      register: result
+
+    - name: print stdout
+      debug: var=result.stdout_lines

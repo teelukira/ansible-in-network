@@ -1,0 +1,15 @@
+- name: demo for ios 
+  hosts: ios
+  connection: network_cli
+  gather_facts: no
+  tasks:
+    - name: save
+      ios_command:
+        commands: "wr mem"
+      when: vendor=="cisco" 
+
+
+    - name: save
+      ios_command:
+        commands: "wr mem"
+      when: ansible_network_os=="ios"

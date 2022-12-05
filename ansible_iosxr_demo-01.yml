@@ -1,0 +1,13 @@
+---
+- name: iosxr demo
+  hosts: iosxr
+  connection: network_cli
+  gather_facts: no
+  tasks:
+    - name: show version
+      iosxr_command:
+        commands:
+          - show version
+      register: command_output
+
+    - debug: var=command_output

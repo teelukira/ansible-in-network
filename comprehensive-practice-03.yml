@@ -1,0 +1,30 @@
+- name: ios users
+  hosts: ios
+  connection: network_cli
+  gather_facts: no
+  tasks:
+    - name: show username 
+      ios_command:
+        commands: show run | inc username 
+      register: output
+ 
+    - debug: var=output.stdout
+    
+    - name: filter with regex
+      set_fact:
+        users: '{{ output.stdout | regex_findall("username ([a-zA-Z0-9]+)") }}'
+    
+    - debug: var=item
+      loop: "{{ users }}"
+    
+    - name: make header
+      lineinfile: 
+        path: "ios_users.csv"
+        line: "inventory_hostname,user"
+        create: yes
+      
+    - name: save
+      lineinfile: 
+        path: "ios_users.csv"
+        line: "{{ inventory_hostname }},{{ item }}"
+      loop: "{{ users }}"

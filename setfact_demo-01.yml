@@ -1,0 +1,17 @@
+- name: find user
+  hosts: ios
+  gather_facts: no
+  connection: network_cli
+#  any_errors_fatal: yes
+  tasks:
+    - name: find cli
+      ios_command:
+        commands: "show run | inc username"
+      register: output
+#      ignore_errors: yes
+    - name: set_fact with filter(regex) 
+      set_fact:
+        users: "{{ output.stdout | regex_findall(regexp) }}"
+      vars:
+        regexp: 'username \S+'
+    - debug: var=users

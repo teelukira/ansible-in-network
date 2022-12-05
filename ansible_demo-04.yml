@@ -1,0 +1,21 @@
+---
+- name: get version from cli
+  hosts: ios
+  connection: local
+  gather_facts: no
+  tasks: 
+    - debug: var=inventory_hostname 
+
+    - name: get cli command
+      ios_command:
+        commands: show version
+      register: output
+    - debug: var=output.stdout
+
+    - set_fact: 
+        version: "{{ output.stdout | regex_search('Version [0-9..]+') }}"
+
+
+    - debug: var=version
+
+...

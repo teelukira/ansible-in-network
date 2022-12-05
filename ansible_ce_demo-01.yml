@@ -1,0 +1,13 @@
+---
+- name: ce demo
+  hosts: ce
+  connection: network_cli
+  gather_facts: no
+  tasks:
+    - name: show version
+      ce_command:
+        commands:
+          - display version
+      register: command_output
+
+    - debug: var=command_output

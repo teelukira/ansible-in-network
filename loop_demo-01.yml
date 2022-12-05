@@ -1,0 +1,13 @@
+- name: loop demo -01 
+  hosts: ios
+  gather_facts: no
+  connection: network_cli
+  tasks: 
+    - ios_command: 
+        commands: "{{ item }}" 
+      loop:
+        - show version
+        - show ip route
+        - show ip interface br
+      register: commands
+    - debug: var=commands.results[2].stdout_lines #commands

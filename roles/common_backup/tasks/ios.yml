@@ -1,0 +1,6 @@
+---
+
+- name: show run
+  ios_command:
+    commands: show run
+  register: cfg_out

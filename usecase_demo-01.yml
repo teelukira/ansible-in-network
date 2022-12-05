@@ -1,0 +1,27 @@
+- name: description demonstration
+  hosts: ios
+  gather_facts: no
+  connection: network_cli
+  tasks:
+    - debug: var=description 
+
+    - name: rendering, template
+      template: 
+        src: description.j2
+        dest: "{{ inventory_hostname }}.cfg"
+
+    - name: command
+      command: "cat {{ inventory_hostname }}.cfg"
+      register: command
+
+
+    - name: push
+      ios_command:
+        commands: "{{ command.stdout_lines }}"
+
+    - name: get interface
+      ios_command:
+        commands: "show interface description"
+      register: interface
+
+    - debug: var=interface.stdout_lines

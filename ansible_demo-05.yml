@@ -1,0 +1,19 @@
+---
+- name: get version from cli
+  hosts: ios
+  connection: local
+  gather_facts: no
+  tasks: 
+    - name: get cli command
+      ios_command:
+        commands: show version
+      register: output
+    - debug: var=output.stdout
+    - name: filter/regex
+      set_fact: 
+        version: "{{ output.stdout | regex_search(regexp) }}" 
+      vars:
+        regexp: 'Version ([0-9..]+)'
+    - debug: var=version
+
+...

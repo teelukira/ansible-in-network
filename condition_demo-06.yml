@@ -1,0 +1,20 @@
+- name: show interfasce
+  hosts: 10.0.0.11
+  gather_facts: no
+  connection: network_cli
+  vars:
+    nodes:
+      - node: 10.0.0.11
+        interface: loopback 0
+      - node: 10.0.0.12
+        interface: loopback 1
+      - node: 10.0.0.13
+        interface: GigabitEthernet 0/0/1
+      - node: 10.0.0.14
+        interface: GigabitEthernet 0/0/2
+  tasks:
+    - name: show interface
+      debug: var=item.interface
+      when: "inventory_hostname==item.node"
+      with_items: "{{ nodes }}"
+      
