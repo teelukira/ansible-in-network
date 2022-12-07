@@ -1,0 +1,8 @@
+
+
+- name: account test
+  hosts: ios, ce
+  connection: network_cli
+  gather_facts: no
+  roles:
+    - common_account

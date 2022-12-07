@@ -1,0 +1,6 @@
+
+
+- name: show user
+  ios_command:
+    commands: show run | inc username
+  register: output

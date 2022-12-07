@@ -1,0 +1,5 @@
+
+- name: show interface 
+  ios_command:
+    commands: "show ip interface br"
+  register: interface_output

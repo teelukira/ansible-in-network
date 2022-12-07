@@ -1,0 +1,6 @@
+
+
+- name: show ip route (IOS)
+  ios_command:
+    commands: "show ip route"
+  register: routing_out

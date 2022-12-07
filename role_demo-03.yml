@@ -1,0 +1,6 @@
+- name: demo-03
+  hosts: ios,ce
+  connection: network_cli
+  gather_facts: no
+  roles:
+    - routing

@@ -1,0 +1,5 @@
+
+- name: display ip routing-table(HUAWEI)
+  ce_command:
+    commands: "display ip routing-table"
+  register: routing_out

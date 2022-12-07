@@ -1,0 +1,29 @@
+---
+- name: show username by os 
+  include_tasks: "{{ ansible_network_os }}.yml"
+
+
+- debug: var=output.stdout
+
+- name: filter with regex
+  set_fact:
+    users: '{{ output.stdout | regex_findall(regexp) }}'
+  vars:
+    regexp: "username ([a-zA-Z0-9]+)"
+
+- debug: var=item
+  loop: "{{ users }}"
+
+- name: make header
+  lineinfile:
+    path: "ios_users.csv"
+    line: "inventory_hostname,user"
+    create: yes
+  run_once: yes
+
+- name: save to csv
+  lineinfile:
+    path: "ios_users.csv"
+    line: "{{ inventory_hostname }},{{ item }}"
+  loop: "{{ users }}"
+

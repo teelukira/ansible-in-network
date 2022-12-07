@@ -12,7 +12,9 @@
     
     - name: filter with regex
       set_fact:
-        users: '{{ output.stdout | regex_findall("username ([a-zA-Z0-9]+)") }}'
+        users: '{{ output.stdout | regex_findall(regexp) }}'
+      vars:
+        regexp: "username ([a-zA-Z0-9]+)"
     
     - debug: var=item
       loop: "{{ users }}"
@@ -22,8 +24,9 @@
         path: "ios_users.csv"
         line: "inventory_hostname,user"
         create: yes
+      run_once: yes
       
-    - name: save
+    - name: save to csv
       lineinfile: 
         path: "ios_users.csv"
         line: "{{ inventory_hostname }},{{ item }}"

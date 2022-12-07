@@ -1,0 +1,12 @@
+---
+
+- name: show command by os 
+  include_tasks: "{{ ansible_network_os }}.yml"
+
+- debug: var=routing_out.stdout
+
+- name: save as text
+  copy: 
+    content: "{{ routing_out.stdout[0] }}"
+    dest: "{{ inventory_hostname }}_routing.txt"
+

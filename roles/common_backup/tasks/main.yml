@@ -1,11 +1,13 @@
----
 
-- name: include_tasks
+
+
+- name: get config based on ansible_network_os
   include_tasks: "{{ ansible_network_os }}.yml"
- 
-- name: copy configuration to textfile
+
+- debug: var=cfg_out.stdout
+
+- name: create a textfile 
   copy:
-    dest: "{{ inventory_hostname }}_configuration.cfg"
+    dest: "{{ inventory_hostname }}.cfg"
     content: "{{ cfg_out.stdout[0] }}"
-
-
+  

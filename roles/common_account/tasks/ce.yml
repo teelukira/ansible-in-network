@@ -1,0 +1,5 @@
+
+- name: show username
+  ce_command:
+    commands: "display cu | inc local-user | ex service"
+  register: output

@@ -1,0 +1,5 @@
+
+- name: show interface 
+  ce_command:
+    commands: "display ip interface br"
+  register: interface_output
