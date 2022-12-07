@@ -1,7 +1,7 @@
 ---
 - name: get version from cli
   hosts: ios
-  connection: local
+  connection: network_cli
   gather_facts: no
   tasks: 
     - name: get cli command

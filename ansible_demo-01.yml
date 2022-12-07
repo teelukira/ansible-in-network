@@ -1,6 +1,6 @@
 - name: demo-01
   hosts: ios
-  connection: local
+  connection: network_cli
   gather_facts: no
   tasks:
     - name: show version
