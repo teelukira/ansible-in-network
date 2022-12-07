@@ -4,8 +4,10 @@
   gather_facts: no
   tasks:
     - name: save
-      ce_command:
-        commands:
-          - save
-          - y
+      cli_command:
+        command: "{{ item }}"
+        sendonly: yes
+      loop:
+        - save
+        - y
       when: ansible_network_os=="ce"
