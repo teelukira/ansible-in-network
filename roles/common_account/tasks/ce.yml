@@ -3,3 +3,12 @@
   ce_command:
     commands: "display cu | inc local-user | ex service"
   register: output
+
+
+- debug: var=output.stdout
+
+- name: filter with regex
+  set_fact:
+    users: '{{ output.stdout | regex_findall(regexp) }}'
+  vars:
+    regexp: "local-user ([a-zA-Z0-9]+)"

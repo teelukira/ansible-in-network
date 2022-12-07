@@ -4,3 +4,12 @@
   ios_command:
     commands: show run | inc username
   register: output
+
+
+- debug: var=output.stdout
+
+- name: filter with regex
+  set_fact:
+    users: '{{ output.stdout | regex_findall(regexp) }}'
+  vars:
+    regexp: "username ([a-zA-Z0-9]+)"
