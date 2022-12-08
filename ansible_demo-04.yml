@@ -13,7 +13,7 @@
     - debug: var=output.stdout
 
     - set_fact: 
-        version: "{{ output.stdout | regex_search('Version [0-9..]+') }}"
+        version: "{{ output.stdout[0] | regex_search('Version [0-9..]+') }}"
 
 
     - debug: var=version

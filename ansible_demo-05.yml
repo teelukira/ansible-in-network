@@ -1,19 +1,23 @@
 ---
-- name: get version from cli
+- name: regex_findall
   hosts: ios
   connection: network_cli
   gather_facts: no
-  tasks: 
-    - name: get cli command
+  tasks:
+    - name: get cli
       ios_command:
-        commands: show version
+        commands: "show ip interface br | inc up"
       register: output
-    - debug: var=output.stdout
-    - name: filter/regex
-      set_fact: 
-        version: "{{ output.stdout | regex_search(regexp) }}" 
-      vars:
-        regexp: 'Version ([0-9..]+)'
-    - debug: var=version
 
-...
+
+    - debug: var=output.stdout_lines
+
+
+    - set_fact:
+        interfaces: "{{ output.stdout[0] | regex_findall(regexp) }}"
+      vars:
+        regexp: '(Ethernet\d/\d)'
+
+
+    - debug: var=interfaces
+

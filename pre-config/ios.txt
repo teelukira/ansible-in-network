@@ -1,13 +1,15 @@
 enable
 configure t
-hostname router1
+hostname Router-01
 ip domain-name bread.com
 crypto key generate rsa
 1024
 ip ssh version 2
 username cisco password 0 cisco
 username cisco priv 15
+username findme
 line vty 0 4
 transport input ssh
 login local
+no ip domain lookup
 do write mem

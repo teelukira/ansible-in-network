@@ -1,0 +1,7 @@
+crypto key generate dsa
+1024
+
+conf t
+ssh server v2
+commit
+end

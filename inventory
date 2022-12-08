@@ -5,11 +5,13 @@ ansible_ssh_pass=cisco
  
 [iosxr:vars]
 ansible_network_os=iosxr
-ansible_ssh_user=cisco
-ansible_ssh_pass=cisco
+ansible_ssh_user=admin
+ansible_ssh_pass=admin
  
 [sros:vars]
 ansible_network_os=sros
+ansible_ssh_user=admin
+ansible_ssh_pass=admin
  
 [ce:vars]
 ansible_network_os=ce
