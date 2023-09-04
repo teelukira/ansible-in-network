@@ -10,9 +10,9 @@
 
     - name: set_fact with filter(regex) 
       set_fact:
-        users: "{{ output.stdout | regex_findall(regexp) }}"
+        users: "{{ output.stdout[0] | regex_findall(regexp) }}"
       vars:
-        regexp: 'username \S+'
+        regexp: 'username (\S+)'
     - debug: var=users
 
     - name: make csv
