@@ -1,5 +1,6 @@
 - name: Add several users
   hosts: localhost
+  gather_facts: no
   tasks: 
     - debug:
        var: "{{ item }}"
